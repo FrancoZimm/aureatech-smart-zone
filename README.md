@@ -12,22 +12,37 @@ Proyecto en equipo del Grado en Ingeniería Informática de la **Universidad Eur
 
 ## Qué hace
 
-| Sensor / actuador | Para qué sirve en la maqueta |
+| Sensor / actuador | Función en la maqueta |
 |---|---|
+| **HC-SR04** (ultrasonidos) | Detecta a una persona caminando y enciende las farolas por tramos: según la distancia se encienden la primera, la segunda o la tercera |
+| **LDR** (luz) | Distingue día y noche: de día las farolas se quedan apagadas y al anochecer se encienden |
 | **DHT22** | Temperatura y humedad ambiente |
-| **HC-SR04** | Distancia: detecta vehículos o personas en la calle de acceso |
-| **LDR** | Nivel de luz para encender el alumbrado al anochecer |
 | **MQ-2** | Detección de gas o humo |
-| **Servo** | Barrera de acceso |
-| **Buzzer + LED** | Alarmas y avisos |
+| **LEDs** | Las farolas |
+| **Servo** | Barrera que da acceso a los vehículos |
+| **Buzzer** | Alarmas |
+| **ESP32-CAM** | Cámara del acceso para el reconocimiento de matrículas |
 
-El ESP32 lee los sensores y envía las lecturas por WiFi a la aplicación, que las almacena, las muestra en tiempo real y ejecuta reglas de automatización (por ejemplo, encender luces o lanzar una alarma).
+El ESP32 envía las lecturas por WiFi a la aplicación, que las guarda, las muestra en tiempo real y aplica las reglas de automatización.
 
 ```text
  sensores ──► ESP32 ──WiFi──► app Python (Flet) ──► MariaDB
-                ▲                   │
-                └──── actuadores ◄──┘  reglas de automatización
+ ESP32-CAM ──────────────────►   │  visión: YOLO
+                ▲                │
+                └── farolas, servo, buzzer ◄── reglas de automatización
 ```
+
+---
+
+## Reconocimiento de matrículas (mi parte)
+
+Dentro del equipo me encargué del módulo de visión del acceso de vehículos:
+
+- **Modelo YOLO (Ultralytics) entrenado para detectar matrículas** en las imágenes de la ESP32-CAM, exportado también a **ONNX** para poder desplegarlo fuera de PyTorch.
+- Extracción y normalización del texto de la matrícula.
+- Comprobación contra la lista de **matrículas autorizadas** de la comunidad: si está permitida, el servo abre la barrera.
+
+Es la línea en la que quiero seguir creciendo: **visión por computador y entrenamiento de modelos** aplicados a problemas reales.
 
 ---
 
@@ -52,7 +67,7 @@ Toda la electrónica va escondida bajo la base: una protoboard con el ESP32 y el
 
 ## Stack
 
-`ESP32` · `Arduino IDE` · `Python` · `Flet` · `MariaDB` · `PlantUML` · impresión 3D · corte láser
+`ESP32` · `ESP32-CAM` · `Arduino IDE` · `Python` · `Flet` · `YOLO (Ultralytics)` · `ONNX` · `MariaDB` · `PlantUML` · impresión 3D · corte láser
 
 ---
 
