@@ -42,8 +42,6 @@ Dentro del equipo me encargué del módulo de visión del acceso de vehículos:
 - Extracción y normalización del texto de la matrícula.
 - Comprobación contra la lista de **matrículas autorizadas** de la comunidad: si está permitida, el servo abre la barrera.
 
-Es la línea en la que quiero seguir creciendo: **visión por computador y entrenamiento de modelos** aplicados a problemas reales.
-
 ---
 
 ## Hardware
