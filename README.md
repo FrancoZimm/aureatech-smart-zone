@@ -78,4 +78,35 @@ Trabajo en grupo de cuatro personas; todos participamos en el diseño, la electr
 - **Pablo Serrano** · [@Pablster](https://github.com/Pablster)
 - **Franco Zimmermann** · [@FrancoZimm](https://github.com/FrancoZimm)
 
-> El código fuente vive en el repositorio privado del equipo. Este repo es una presentación del proyecto.
+---
+
+## Código
+
+```text
+.
+├── app.py                 punto de entrada de la app (Flet)
+├── app/
+│   ├── controller/        controladores
+│   ├── model/             entidades: sensores, lecturas, usuarios, alertas…
+│   ├── repository/        acceso a MariaDB
+│   ├── service/           servicios: reglas, alertas, matrículas…
+│   ├── view/              interfaz Flet
+│   ├── infraestructure/   base de datos y visión (YOLO)
+│   └── vision_server.py   servidor de visión
+├── sim/                   generadores de datos de prueba
+└── docs/                  diagramas, SQL, firmware del ESP32 y guía técnica
+```
+
+- **Guía técnica** (instalación, base de datos y usuarios de prueba): [`docs/GUIA_TECNICA.md`](docs/GUIA_TECNICA.md)
+- **Firmware del ESP32**: [`docs/smartcity_esp32.ino`](docs/smartcity_esp32.ino). Antes de subirlo hay que poner el WiFi y los datos de la base de datos en los `#define` del principio.
+- **Modelo de matrículas**: `app/infraestructure/vision/models/` (`.pt` y `.onnx`).
+
+### Puesta en marcha rápida
+
+```bash
+pip install -r requirements.txt
+mysql -u root -p pii26_aureatech < docs/db.sql
+python app.py
+```
+
+> Código publicado con el visto bueno del profesor de la asignatura. Repositorio original del equipo en la organización de clase.
